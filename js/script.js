@@ -6,11 +6,17 @@ const colorMenu = document.querySelector('#color');
 const design = document.querySelector('#design');
 const activities = document.querySelector('fieldset#activities');
 let totalActivityCost = 0;
+const paypal = document.querySelector('#paypal');
+const bitcoin = document.querySelector('#bitcoin');
+const credit = document.querySelector('#credit-card');
+const paymentMethod = document.querySelector('#payment');
 
 // page load settings
 document.querySelector('#name').focus();
 jobRole.style.visibility = 'hidden';
 colorMenu.disabled = true;
+paypal.style.display = 'none';
+bitcoin.style.display = 'none';
 
 
 /*
@@ -71,8 +77,12 @@ design.addEventListener('change', (e) => {
 	}
 });
 
-// p#activities-cost.innerHTML = `Total: ${total}`
 
+/*
+	Event listener finds the cost of the target and adds it to the
+	total if the checkbox is checked and removes it from the total
+	if the checkbox is unchecked, then displays the total on the page.
+*/
 activities.addEventListener('change', (e) => {
 	const totalDisplay = document.querySelector('p#activities-cost');
 	if ( e.target.checked ) {
@@ -84,4 +94,23 @@ activities.addEventListener('change', (e) => {
 	totalDisplay.textContent = `Total: $${totalActivityCost}`;
 });
 
+/*
+	Event listener checks to see which payment method is selected 
+	and displays the information for that one and hides the others.
+*/
+paymentMethod.addEventListener('change', (e) => {
+	if ( paymentMethod.value === 'paypal' ) {
+		paypal.style.display = 'block';
+		bitcoin.style.display = 'none';
+		credit.style.display = 'none';
+	} else if ( paymentMethod.value === 'bitcoin' ) {
+		paypal.style.display = 'none';
+		bitcoin.style.display = 'block';
+		credit.style.display = 'none';
+	} else {
+		paypal.style.display = 'none';
+		bitcoin.style.display = 'none';
+		credit.style.display = 'block';
+	}
+});
 

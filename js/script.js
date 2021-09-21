@@ -10,6 +10,7 @@ const paypal = document.querySelector('#paypal');
 const bitcoin = document.querySelector('#bitcoin');
 const credit = document.querySelector('#credit-card');
 const paymentMethod = document.querySelector('#payment');
+const form = document.querySelector('form');
 
 // page load settings
 document.querySelector('#name').focus();
@@ -111,6 +112,37 @@ paymentMethod.addEventListener('change', (e) => {
 		paypal.style.display = 'none';
 		bitcoin.style.display = 'none';
 		credit.style.display = 'block';
+	}
+});
+
+// Form validation
+
+form.addEventListener('submit', (e) => {
+	const name = document.querySelector('input#name');
+	const email = document.querySelector('input#email');
+	const emailRegex = /^\w+[.]?\w+@\w+[.](com)$/i;
+	const ccNum = document.querySelector('input#cc-num');
+	const ccNumRegex = /^[0-9]{13,16}$/;
+	const zip = document.querySelector('input#zip');
+	const zipRegex = /^[0-9]{5}$/;
+	const cvv = document.querySelector('input#cvv');
+	const cvvRegex = /^[0-9]{3}$/;
+
+	if ( name.value === '') {
+		e.preventDefault();
+		alert('name missing')
+	} else if ( emailRegex.test(email.value) === false ) {
+		e.preventDefault();
+		alert('invalid email')
+	} else if ( paymentMethod.value === 'credit-card' && ccNumRegex.test(ccNum.value) === false ) {
+		e.preventDefault();
+		alert('invalid cc')
+	} else if ( paymentMethod.value === 'credit-card' && zipRegex.test(zip.value) === false ) {
+		e.preventDefault();
+		alert('invalid zip')
+	} else if ( paymentMethod.value === 'credit-card' && cvvRegex.test(cvv.value) === false ) {
+		e.preventDefault();
+		alert('invalid cvv')
 	}
 });
 

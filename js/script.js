@@ -127,22 +127,49 @@ form.addEventListener('submit', (e) => {
 	const zipRegex = /^[0-9]{5}$/;
 	const cvv = document.querySelector('input#cvv');
 	const cvvRegex = /^[0-9]{3}$/;
+	const nameHint = document.querySelector('#name-hint');
+	const emailHint = document.querySelector('#email-hint');
+	const activities = document.querySelectorAll('#activities-box input');
+	const ccNumHint = document.querySelector('#cc-hint');
+	const zipHint = document.querySelector('#zip-hint');
+	const cvvHint = document.querySelector('#cvv-hint');
+	const activitiesHint = document.querySelector('#activities-hint');
+	let checked  = 0;
 
 	if ( name.value === '') {
 		e.preventDefault();
-		alert('name missing')
-	} else if ( emailRegex.test(email.value) === false ) {
+		nameHint.style.display = 'block';	
+	} 
+
+	if ( emailRegex.test(email.value) === false ) {
 		e.preventDefault();
-		alert('invalid email')
-	} else if ( paymentMethod.value === 'credit-card' && ccNumRegex.test(ccNum.value) === false ) {
-		e.preventDefault();
-		alert('invalid cc')
-	} else if ( paymentMethod.value === 'credit-card' && zipRegex.test(zip.value) === false ) {
-		e.preventDefault();
-		alert('invalid zip')
-	} else if ( paymentMethod.value === 'credit-card' && cvvRegex.test(cvv.value) === false ) {
-		e.preventDefault();
-		alert('invalid cvv')
+		emailHint.style.display = 'block';
 	}
+
+	for ( let i = 0; i < activities.length; i++ ) {
+		if ( activities[i].checked ) {
+			checked += 1;
+		}
+	}
+
+	if ( checked === 0 ) {
+		e.preventDefault();
+		activitiesHint.style.display = 'block';
+	}
+
+	if ( paymentMethod.value === 'credit-card' && ccNumRegex.test(ccNum.value) === false ) {
+		e.preventDefault();
+		ccNumHint.style.display = 'block';
+	}
+
+	if ( paymentMethod.value === 'credit-card' && zipRegex.test(zip.value) === false ) {
+		e.preventDefault();
+		zipHint.style.display = 'block';
+	}
+
+	if ( paymentMethod.value === 'credit-card' && cvvRegex.test(cvv.value) === false ) {
+		e.preventDefault();
+		cvvHint.style.display = 'block';
+	} 
 });
 

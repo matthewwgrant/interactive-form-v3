@@ -4,6 +4,8 @@ const jobMenu = document.querySelector('#title');
 const jobRole = document.querySelector('#other-job-role');
 const colorMenu = document.querySelector('#color');
 const design = document.querySelector('#design');
+const activities = document.querySelector('fieldset#activities');
+let totalActivityCost = 0;
 
 // page load settings
 document.querySelector('#name').focus();
@@ -22,7 +24,7 @@ jobMenu.addEventListener('change', (e) => {
 	} else {
 		otherJob.style.visibility = 'hidden';
 	}
-})
+});
 
 
 /*
@@ -64,11 +66,22 @@ design.addEventListener('change', (e) => {
 		for ( let j = 0; j < heartsDesign.length; j++ ) {
 			heartsDesign[j].style.display = 'block';
 		}
-	} 
+	} else {
+		colorMenu.disabled = true;
+	}
+});
 
-	// else {
-	// 	colorMenu.disabled = true;
-	// }
-})
+// p#activities-cost.innerHTML = `Total: ${total}`
+
+activities.addEventListener('change', (e) => {
+	const totalDisplay = document.querySelector('p#activities-cost');
+	if ( e.target.checked ) {
+		totalActivityCost += parseInt(e.target.getAttribute('data-cost'));
+	} else if ( !e.target.checked ) {
+		totalActivityCost -= parseInt(e.target.getAttribute('data-cost'));
+
+	}
+	totalDisplay.textContent = `Total: $${totalActivityCost}`;
+});
 
 

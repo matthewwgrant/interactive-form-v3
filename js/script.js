@@ -29,6 +29,12 @@ jobMenu.addEventListener('change', (e) => {
 	Event listener disables color drop down until a design is 
 	chosen and then displays colors available for only that 
 	design
+
+	Note: I could have combined the display and hide for loops in each block together
+	and used the array length for either since they are the same and it would
+	have been less code. But I separated them in case (and I know it won't be for this
+	project but out of habit) they arrays ever became different lengths as it would
+	then not work properly.
 */
 design.addEventListener('change', (e) => {
 	const punsDesign = document.querySelectorAll('option[data-theme="js puns"]');
@@ -42,14 +48,22 @@ design.addEventListener('change', (e) => {
 			heartsDesign[i].style.display = 'none';
 		}
 
+		for ( let j = 0; j < punsDesign.length; j++ ) {
+			punsDesign[j].style.display = 'block';
+		}
+
 	} else if ( design.value === 'heart js') {
 		colorMenu.disabled = false;
 		colorMenu.value = heartsDesign[0].value;
 
 		for ( let i = 0; i < punsDesign.length; i++ ) {
 			punsDesign[i].style.display = 'none';
+			heartsDesign[i].style.display = 'block';
 		}
 
+		for ( let j = 0; j < heartsDesign.length; j++ ) {
+			heartsDesign[j].style.display = 'block';
+		}
 	} 
 
 	// else {

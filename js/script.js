@@ -15,7 +15,6 @@ colorMenu.disabled = true;
 	Event listener hides 'other' text field unless 'other'
 	is selected for job role
 */
-
 jobMenu.addEventListener('change', (e) => {
 	const otherJob = document.querySelector('#other-job-role');
 	if (e.target.value === 'other') {
@@ -31,30 +30,31 @@ jobMenu.addEventListener('change', (e) => {
 	chosen and then displays colors available for only that 
 	design
 */
-
 design.addEventListener('change', (e) => {
 	const punsDesign = document.querySelectorAll('option[data-theme="js puns"]');
 	const heartsDesign = document.querySelectorAll('option[data-theme="heart js"]');
 
-	if ( design.value = 'js puns') {
+	if ( design.value === 'js puns') {
 		colorMenu.disabled = false;
-		punsDesign[0].selected = true;
+		colorMenu.value = punsDesign[0].value;
 		
 		for ( let i = 0; i < heartsDesign.length; i++ ) {
 			heartsDesign[i].style.display = 'none';
 		}
 
-	} else if ( design.value = 'heart js') {
+	} else if ( design.value === 'heart js') {
 		colorMenu.disabled = false;
-		heartsDesign[0].selected = true;
+		colorMenu.value = heartsDesign[0].value;
 
 		for ( let i = 0; i < punsDesign.length; i++ ) {
 			punsDesign[i].style.display = 'none';
 		}
 
-	} else {
-		colorMenu.disabled = true;
-	}
+	} 
+
+	// else {
+	// 	colorMenu.disabled = true;
+	// }
 })
 
 

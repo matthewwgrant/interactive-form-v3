@@ -13,7 +13,6 @@ const credit = document.querySelector('#credit-card');
 const paymentMethod = document.querySelector('#payment');
 const form = document.querySelector('form');
 const checkBox = document.querySelectorAll('input[type="checkbox"]');
-console.log(checkBox);
 
 // page load settings
 document.querySelector('#name').focus();
@@ -81,18 +80,48 @@ design.addEventListener('change', (e) => {
 	}
 });
 
+/*
+	Event listener disables any event at the same time as the one
+	that was selected and enables the disabled event if previously
+	selected event is deselected
+*/
+
+activities.addEventListener('change', (e) => {
+	const checked = e.target.checked;
+	const activitiesInput = document.querySelectorAll('#activities-box input');
+	
+	for ( let i = 0; i < activitiesInput.length; i++ ) {
+		const dateTime = activitiesInput[i].getAttribute('data-day-and-time');
+		if ( dateTime && activitiesInput[i] !== e.target && activitiesInput[i].getAttribute('data-day-and-time') === e.target.getAttribute('data-day-and-time')) {
+			activitiesInput[i].parentNode.className = 'disabled';
+			activitiesInput[i].disabled = true;
+		} 
+
+		if (!checked && e.target && activitiesInput[i].getAttribute('data-day-and-time') === e.target.getAttribute('data-day-and-time')) {
+			activitiesInput[i].parentNode.className = '';
+			activitiesInput[i].disabled = false;
+		}
+	}
+});
 
 /*
 	Event listener finds the cost of the target and adds it to the
 	total if the checkbox is checked and removes it from the total
 	if the checkbox is unchecked, then displays the total on the page.
+	This also prevents the user from selecting multiple events that
+	occur at the same time by disabling any other activities at the 
+	same time as one that has been selected.
 */
 activities.addEventListener('change', (e) => {
 	const totalDisplay = document.querySelector('p#activities-cost');
-	if ( e.target.checked ) {
-		totalActivityCost += parseInt(e.target.getAttribute('data-cost'));
-	} else if ( !e.target.checked ) {
-		totalActivityCost -= parseInt(e.target.getAttribute('data-cost'));
+	const checked = e.target.checked;
+	const activityCost = e.target.getAttribute('data-cost');
+
+	if ( checked ) {
+		totalActivityCost += parseInt(activityCost);
+
+	} else if ( !checked ) {
+		totalActivityCost -= parseInt(activityCost);
 
 	}
 	totalDisplay.textContent = `Total: $${totalActivityCost}`;
@@ -159,6 +188,7 @@ form.addEventListener('submit', (e) => {
 	}
 
 	for ( let i = 0; i < activitiesInput.length; i++ ) {
+		
 		if ( activitiesInput[i].checked ) {
 			checked += 1;
 		}
@@ -217,3 +247,16 @@ checkBox.forEach( item => {
 		item.parentNode.className = '';
 	})
 });
+
+/*
+	get the time and date of each activity
+	compare what is checked to all others
+	disable those that are not checked
+*/
+activities.addEventListener('checked', (e) => {
+	// for (let i = 0; i < activities.length; i++ ) {
+		const dateTime = activities.getAttribute('data-day-and-time');
+		console.log(dateTime);
+	// } 
+});
+

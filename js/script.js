@@ -129,25 +129,28 @@ form.addEventListener('submit', (e) => {
 	const cvvRegex = /^[0-9]{3}$/;
 	const nameHint = document.querySelector('#name-hint');
 	const emailHint = document.querySelector('#email-hint');
-	const activities = document.querySelectorAll('#activities-box input');
+	const activitiesInput = document.querySelectorAll('#activities-box input');
 	const ccNumHint = document.querySelector('#cc-hint');
 	const zipHint = document.querySelector('#zip-hint');
 	const cvvHint = document.querySelector('#cvv-hint');
 	const activitiesHint = document.querySelector('#activities-hint');
+
 	let checked  = 0;
 
 	if ( name.value === '') {
 		e.preventDefault();
-		nameHint.style.display = 'block';	
+		nameHint.style.display = 'block';
+		name.parentNode.className = 'error-border not-valid';
 	} 
 
 	if ( emailRegex.test(email.value) === false ) {
 		e.preventDefault();
 		emailHint.style.display = 'block';
+		email.parentNode.className = 'error-border not-valid';
 	}
 
-	for ( let i = 0; i < activities.length; i++ ) {
-		if ( activities[i].checked ) {
+	for ( let i = 0; i < activitiesInput.length; i++ ) {
+		if ( activitiesInput[i].checked ) {
 			checked += 1;
 		}
 	}
@@ -155,21 +158,36 @@ form.addEventListener('submit', (e) => {
 	if ( checked === 0 ) {
 		e.preventDefault();
 		activitiesHint.style.display = 'block';
+		activities.className = 'activities error-border not-valid';
 	}
 
 	if ( paymentMethod.value === 'credit-card' && ccNumRegex.test(ccNum.value) === false ) {
 		e.preventDefault();
 		ccNumHint.style.display = 'block';
+		ccNum.parentNode.className = 'error-border not-valid';
 	}
 
 	if ( paymentMethod.value === 'credit-card' && zipRegex.test(zip.value) === false ) {
 		e.preventDefault();
 		zipHint.style.display = 'block';
+		zip.parentNode.className = 'error-border not-valid';
 	}
 
 	if ( paymentMethod.value === 'credit-card' && cvvRegex.test(cvv.value) === false ) {
 		e.preventDefault();
 		cvvHint.style.display = 'block';
+		cvv.parentNode.className = 'error-border not-valid';
 	} 
 });
 
+activities.addEventListener('focus', (e) => {
+	for ( let i = 0; i < activities.length; i++ ) {
+		console.log(activities[i].parentNode);
+	}
+});
+
+activities.addEventListener('blur', (e) => {
+	for ( let i = 0; i < activities.length; i++ ) {
+		activities[i].parentNode.className = '';
+	}
+});

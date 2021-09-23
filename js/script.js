@@ -248,15 +248,24 @@ checkBox.forEach( item => {
 	})
 });
 
+
 /*
-	get the time and date of each activity
-	compare what is checked to all others
-	disable those that are not checked
+	Event listener that updates on keyup to 
+	determine if the email address is valid.
+	Only goes into effect if the email field
+	is the active input
 */
-activities.addEventListener('checked', (e) => {
-	// for (let i = 0; i < activities.length; i++ ) {
-		const dateTime = activities.getAttribute('data-day-and-time');
-		console.log(dateTime);
-	// } 
+form.addEventListener('keyup', (e) => {
+	const email = document.querySelector('input#email');
+	const emailRegex = /^\w+[.]?\w+@\w+[.](com)$/i;
+	if ( document.activeElement === email ) {
+		if ( emailRegex.test(email.value) === false ) {
+			email.nextElementSibling.style.display = 'block';
+			email.parentNode.className = 'error-border not-valid';
+		} else {
+			email.nextElementSibling.style.display = 'none';
+			email.parentNode.className = 'valid';
+		}
+	}
 });
 

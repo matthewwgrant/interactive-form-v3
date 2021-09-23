@@ -198,7 +198,7 @@ form.addEventListener('submit', (e) => {
 		e.preventDefault();
 		activities.lastElementChild.style.display = 'block';
 		activities.className = 'activities error-border not-valid';
-	} else {
+	} else if (checked !== 0 ) {
 		activities.lastElementChild.style.display = 'none';
 		activities.className = 'activities valid';
 	}
@@ -258,14 +258,47 @@ checkBox.forEach( item => {
 form.addEventListener('keyup', (e) => {
 	const email = document.querySelector('input#email');
 	const emailRegex = /^\w+[.]?\w+@\w+[.](com)$/i;
+
+
 	if ( document.activeElement === email ) {
 		if ( emailRegex.test(email.value) === false ) {
+			e.preventDefault();
 			email.nextElementSibling.style.display = 'block';
 			email.parentNode.className = 'error-border not-valid';
 		} else {
 			email.nextElementSibling.style.display = 'none';
 			email.parentNode.className = 'valid';
 		}
-	}
+	} 
 });
 
+/*
+	Event listener lets the user know what is 
+	wrong with the name field
+*/
+form.addEventListener('keyup', (e) => {
+	const name = document.querySelector('input#name');
+	const nameRegex = /^[A-Z]+ ?[A-Z]*/i;
+	const checkNum = /\d/;
+
+	if ( nameRegex.test(name.value) === false ) {
+		if (checkNum.test(name.value) === true ) {
+			e.preventDefault();
+			name.nextElementSibling.textContent = 'Name may not contain any numbers';
+			name.nextElementSibling.style.display = 'block';
+			name.parentNode.className = 'error-border not-valid';
+		} else if ( name.value !== '' && checkNum.test(name.value) === false ) {
+			e.preventDefault();
+			name.nextElementSibling.textContent = 'Name may not contain any special characters';
+			name.nextElementSibling.style.display = 'block';
+			name.parentNode.className = 'error-border not-valid';
+		} else if (name.value === '') {
+			e.preventDefault();
+			name.nextElementSibling.style.display = 'block';
+			name.parentNode.className = 'error-border not-valid';
+		}
+	} else {
+		name.nextElementSibling.style.display = 'none';
+		name.parentNode.className = 'valid';
+	}
+});

@@ -144,12 +144,18 @@ form.addEventListener('submit', (e) => {
 		e.preventDefault();
 		nameHint.style.display = 'block';
 		name.parentNode.className = 'error-border not-valid';
-	} 
+	} else {
+		nameHint.style.display = 'none';
+		name.parentNode.className = 'valid';
+	}
 
 	if ( emailRegex.test(email.value) === false ) {
 		e.preventDefault();
 		emailHint.style.display = 'block';
 		email.parentNode.className = 'error-border not-valid';
+	} else {
+		emailHint.style.display = 'none';
+		email.parentNode.className = 'valid';
 	}
 
 	for ( let i = 0; i < activitiesInput.length; i++ ) {
@@ -162,25 +168,37 @@ form.addEventListener('submit', (e) => {
 		e.preventDefault();
 		activities.lastElementChild.style.display = 'block';
 		activities.className = 'activities error-border not-valid';
+	} else {
+		activities.lastElementChild.style.display = 'none';
+		activities.className = 'activities valid';
 	}
 
 	if ( paymentMethod.value === 'credit-card' && ccNumRegex.test(ccNum.value) === false ) {
 		e.preventDefault();
 		ccNumHint.style.display = 'block';
 		ccNum.parentNode.className = 'error-border not-valid';
+	} else if ( paymentMethod.value === 'credit-card' && ccNumRegex.test(ccNum.value) === true ) {
+		ccNumHint.style.display = 'none';
+		ccNum.parentNode.className = 'valid';
 	}
 
 	if ( paymentMethod.value === 'credit-card' && zipRegex.test(zip.value) === false ) {
 		e.preventDefault();
 		zipHint.style.display = 'block';
 		zip.parentNode.className = 'error-border not-valid';
+	} else if ( paymentMethod.value === 'credit-card' && zipRegex.test(zip.value) === true ) {
+		zipHint.style.display = 'none';
+		zip.parentNode.className = 'valid';
 	}
 
 	if ( paymentMethod.value === 'credit-card' && cvvRegex.test(cvv.value) === false ) {
 		e.preventDefault();
 		cvvHint.style.display = 'block';
 		cvv.parentNode.className = 'error-border not-valid';
-	} 
+	} else if ( paymentMethod.value === 'credit-card' && cvvRegex.test(cvv.value) === true ){
+		cvvHint.style.display = 'none';
+		cvv.parentNode.className = 'valid';
+	}
 });
 
 /*	

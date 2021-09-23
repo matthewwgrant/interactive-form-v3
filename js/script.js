@@ -6,11 +6,14 @@ const colorMenu = document.querySelector('#color');
 const design = document.querySelector('#design');
 const activities = document.querySelector('fieldset#activities');
 let totalActivityCost = 0;
+const activitiesBox = document.querySelector('#activities-box');
 const paypal = document.querySelector('#paypal');
 const bitcoin = document.querySelector('#bitcoin');
 const credit = document.querySelector('#credit-card');
 const paymentMethod = document.querySelector('#payment');
 const form = document.querySelector('form');
+const checkBox = document.querySelectorAll('input[type="checkbox"]');
+console.log(checkBox);
 
 // page load settings
 document.querySelector('#name').focus();
@@ -157,7 +160,7 @@ form.addEventListener('submit', (e) => {
 
 	if ( checked === 0 ) {
 		e.preventDefault();
-		activitiesHint.style.display = 'block';
+		activities.lastElementChild.style.display = 'block';
 		activities.className = 'activities error-border not-valid';
 	}
 
@@ -180,14 +183,19 @@ form.addEventListener('submit', (e) => {
 	} 
 });
 
-activities.addEventListener('focus', (e) => {
-	for ( let i = 0; i < activities.length; i++ ) {
-		console.log(activities[i].parentNode);
-	}
+/*	
+	Focus and blur do not bubble so had to use
+	forEach to loop over checkbox inputs
+	and add event listeners to each item that way
+*/
+checkBox.forEach( item => {
+	item.addEventListener('focus', () => {
+		item.parentNode.className = 'focus';
+	})
 });
 
-activities.addEventListener('blur', (e) => {
-	for ( let i = 0; i < activities.length; i++ ) {
-		activities[i].parentNode.className = '';
-	}
+checkBox.forEach( item => {
+	item.addEventListener('blur', () => {
+		item.parentNode.className = '';
+	})
 });

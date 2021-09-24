@@ -204,6 +204,12 @@ form.addEventListener('submit', (e) => {
 		activities.className = 'activities valid';
 	}
 
+	if ( paymentMethod.value !== 'credit-card' && paymentMethod.value !== 'paypal' && paymentMethod.value !== 'bitcoin') {
+		e.preventDefault();
+		ccNumHint.textContent = 'Please select a valid payment method';
+		ccNumHint.style.display = 'block';
+	}
+
 	if ( paymentMethod.value === 'credit-card' && ccNumRegex.test(ccNum.value) === false ) {
 		e.preventDefault();
 		ccNumHint.style.display = 'block';

@@ -278,7 +278,7 @@ form.addEventListener('keyup', (e) => {
 */
 form.addEventListener('keyup', (e) => {
 	const name = document.querySelector('input#name');
-	const nameRegex = /^[A-Z]+ ?[A-Z]*/i;
+	const nameRegex = /^[A-Z]+ ?[A-Z]*$/i;
 	const checkNum = /\d/;
 
 	if ( nameRegex.test(name.value) === false ) {
@@ -292,12 +292,12 @@ form.addEventListener('keyup', (e) => {
 			name.nextElementSibling.textContent = 'Name may not contain any special characters';
 			name.nextElementSibling.style.display = 'block';
 			name.parentNode.className = 'error-border not-valid';
-		} else if (name.value === '') {
+		} else {
 			e.preventDefault();
 			name.nextElementSibling.style.display = 'block';
 			name.parentNode.className = 'error-border not-valid';
 		}
-	} else {
+	} else if( nameRegex.test(name.value) === true ){
 		name.nextElementSibling.style.display = 'none';
 		name.parentNode.className = 'valid';
 	}

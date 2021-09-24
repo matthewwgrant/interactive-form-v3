@@ -20,6 +20,7 @@ jobRole.style.visibility = 'hidden';
 colorMenu.disabled = true;
 paypal.style.display = 'none';
 bitcoin.style.display = 'none';
+paymentMethod.value = 'credit-card';
 
 
 /*

@@ -230,6 +230,7 @@ form.addEventListener('submit', (e) => {
 		cvvHint.style.display = 'none';
 		cvv.parentNode.className = 'valid';
 	}
+
 });
 
 /*	

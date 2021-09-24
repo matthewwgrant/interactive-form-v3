@@ -58,9 +58,11 @@ design.addEventListener('change', (e) => {
 		
 		for ( let i = 0; i < heartsDesign.length; i++ ) {
 			heartsDesign[i].style.display = 'none';
+			heartsDesign[i].disabled = true;
 		}
 
 		for ( let j = 0; j < punsDesign.length; j++ ) {
+			punsDesign[j].disabled = false;
 			punsDesign[j].style.display = 'block';
 		}
 
@@ -70,11 +72,14 @@ design.addEventListener('change', (e) => {
 
 		for ( let i = 0; i < punsDesign.length; i++ ) {
 			punsDesign[i].style.display = 'none';
+			punsDesign[i].disabled = true;
 			heartsDesign[i].style.display = 'block';
+
 		}
 
 		for ( let j = 0; j < heartsDesign.length; j++ ) {
 			heartsDesign[j].style.display = 'block';
+			heartsDesign[j].disabled = false;
 		}
 	} else {
 		colorMenu.disabled = true;
